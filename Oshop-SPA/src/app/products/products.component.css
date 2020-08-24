@@ -1,0 +1,16 @@
+.list-group-item{
+    word-break: break-word;
+  }
+
+
+ul {
+    list-style-type: none;
+}
+
+.sticky-top{
+    top:80px;
+}
+
+a {
+    cursor: pointer;
+}

@@ -1,0 +1,124 @@
+<div class="text-center mt-3">
+  <h2>Total products - {{ pagination.totalItems }} found</h2>
+  <button class="btn btn-primary" [routerLink]="['/admin/product/add']" >Add New</button>
+</div>
+
+<div class="container mt-3">
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadProducts()" novalidate>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group px-2">
+          <label for="category">Category: </label>
+          <select
+            class="form-control ml-1"
+            style="width: 130px;"
+            id="category"
+            name="category"
+            [(ngModel)]="productParams.categoryId"
+          >
+            <option value=''>All</option>
+            <option *ngFor="let s of categoryList" [value]="s.id">
+              {{ s.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group px-2">
+          <label for="soldOut">Show: </label>
+          <select
+            class="form-control ml-1"
+            style="width: 130px;"
+            id="soldOut"
+            name="solOut"
+            [(ngModel)]="productParams.soldOut"
+          >
+            <option value=''>All</option>
+            <option value="{{true}}">Sold Out</option>
+            <option value="{{false}}">Available</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group px-2">
+          <label for="productId">Product Id: </label>
+          <input
+            type="text"
+            class="form-control ml-1"
+            style="width: 130px;"
+            id="productId"
+            name="productId"
+            [(ngModel)]="productParams.productId"
+          />
+        </div>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-center mt-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="margin-left: 10px;"
+          >
+            Apply Filters
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="resetFilters()"
+            style="margin-left: 10px;"
+          >
+            Reset Filter
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br />
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 35%;">Id</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th style="width: 10%;">Weight(g)</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency:'USD':'symbol' }}</td>
+          <td style="text-align: center;">{{ product.weight }}</td>
+          <td>
+            <a [routerLink]="['/admin/product/', product.id]">
+              <i class="fa fa-pencil mr-1"></i>Manage
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

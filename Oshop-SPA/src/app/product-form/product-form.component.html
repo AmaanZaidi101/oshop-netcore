@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-6">
+      <form #productForm="ngForm" (ngSubmit)="save(productForm.value)">
+          <div class="form-group">
+              <label for="name">Title</label>
+              <input #name="ngModel" [(ngModel)]="product.name" name="name" id="name" type="text" class="form-control" required>
+              <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                  Title is required
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="weight">Weight (g)</label>
+            <input #weight="ngModel" [(ngModel)]="product.weight" name="weight" id="weight" type="number" class="form-control" required>
+            <div class="alert alert-danger" *ngIf="weight.touched && weight.invalid">
+                Weight is required
+            </div>
+        </div>
+          <div class="form-group">
+              <label for="price">Price</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                  </div>
+                  <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required [min]="0">
+              </div>
+              <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                  <div *ngIf="price.errors.required">Price is required</div>
+                  <div *ngIf="price.errors.min">Price should not be less than 0</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="categoryId">Category</label>
+              <select #category="ngModel" [(ngModel)]="product.categoryId" name="categoryId" id="categoryId" class="form-control" required>
+                  <option value>--Select--</option>
+                  <option *ngFor="let category of categories" [value]="category.id">
+                      {{category.name}}
+                  </option>
+              </select>
+              <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+                  Category is required
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="imageUrl">Image Url</label>
+              <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" alt="ABC" name="imageUrl" id="imageUrl" type="url" class="form-control" required url>
+              <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+                  <div *ngIf="imageUrl.errors.required">Image Url is required</div>
+                  <div *ngIf="imageUrl.errors.url">Please enter a valid URL</div>
+              </div>
+          </div>
+          <button [disabled]="productForm.invalid" type="submit" class="btn btn-primary mr-1">Save</button>
+          <button *ngIf="product.id && !product.soldOut" (click)="openDialog()" type="button" class="btn btn-danger">Sold Out</button>
+          <button *ngIf="product.id && product.soldOut" (click)="openDialog()" type="button" class="btn btn-success">Avaialble</button>
+      </form>
+  </div>
+  <div class="col-md-6">
+      <app-product-card
+      [product]="product"
+      [showActions]="false"
+      ></app-product-card>
+  </div>
+</div>
+
+

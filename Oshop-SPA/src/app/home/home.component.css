@@ -1,0 +1,19 @@
+.content {
+background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.7); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  max-width: 700px;
+  top: 20px;
+  margin-bottom: 85px;
+  overflow: hidden;
+}
+
+.homecontainer {
+  background-image: url(https://c.pxhere.com/photos/f9/3b/groceries_fruit_vegan_soy_food_grocery_fresh_diet-1040940.jpg!d);
+  margin-top: -15px;
+  min-height: 550px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  overflow: hidden;
+}

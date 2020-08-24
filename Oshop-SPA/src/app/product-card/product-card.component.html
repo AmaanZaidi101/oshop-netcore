@@ -1,0 +1,19 @@
+<div  class="card" [ngClass]="{'shaded': product.soldOut}">
+  <img *ngIf="product.imageUrl" [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}">
+  <h1 *ngIf="product.soldOut" class="sold">Sold Out</h1>
+  <div class="card-body">
+    <h5 *ngIf="product.weight" class="card-title">{{product.name}} ({{product.weight}}g)</h5>
+    <p class="card-text">{{product.price | currency:'USD':'symbol'}}</p>
+  </div>
+  <div class="card-footer" *ngIf="showActions && !product.soldOut">
+    <button
+    *ngIf="cartService.getItemQuantity(product) === 0; else updateQuantity"
+     (click)="addToCart()" class="btn btn-block btn-secondary">Add to Cart</button>
+     <ng-template #updateQuantity>
+        <app-product-quantity
+        [product]="product"
+        [cart]="cart"
+        ></app-product-quantity>
+     </ng-template>
+</div>
+</div>

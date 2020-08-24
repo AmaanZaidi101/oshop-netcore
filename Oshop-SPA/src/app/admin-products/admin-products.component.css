@@ -1,0 +1,7 @@
+.row {
+    width: 100%;
+}
+
+input, select {
+    min-width: 200px;
+}

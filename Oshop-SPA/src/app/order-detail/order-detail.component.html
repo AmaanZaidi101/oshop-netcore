@@ -1,0 +1,74 @@
+
+<ng-container *ngIf=order>
+  <div class="row">
+      <div class="col-md-6 col-sm-12">
+          <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Order: {{order.id}} </h5>
+                <p class="card-text">Order Date: {{order.datePlaced | date}}</p>
+                <table class="table">
+                  <thead>
+                      <th></th>
+                      <th>Product</th>
+                      <th class="text-right">Price</th>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of order.productItems">
+                          <td>
+                              <div [style.backgroundImage]="'url('+ item.product.imageUrl + ')'" class="thumbnail"></div>
+                          </td>
+                          <td>
+                              {{item.product.name}} x {{item.quantity}}
+                          </td>
+                          <td class="text-right">
+                              {{item.totalPrice|currency:'USD':'symbol'}}
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <th></th>
+                          <th></th>
+                          <th class="text-right">{{'10'|currency:'USD':'symbol'}}</th>
+                      </tr>
+                  </tfoot>
+              </table>
+              <div *ngIf="order.userId === authService.currentUser.id">
+                <div class="float-right" *ngIf="!order.status || order.status==='pending'; else displayMsg">
+                    <a (click)="openDialog()" class="btn btn-danger text-light">Cancel</a>
+                  </div>
+                  <ng-template #displayMsg>
+                      <strong> Order has been {{order.status}}</strong>
+                  </ng-template>
+                </div>    
+              </div>
+              
+              <div *appHasRole="['Admin','Moderator']" class="text-center mb-2">
+                <button class="btn btn-secondary mr-1" *ngIf="order.status === 'confirmed'" (click)="openUpdateDialog('delivered')">Delivered</button>
+                <div *ngIf="order.status === 'pending'; else displayStatus">
+                    <button class="btn btn-success mr-1" (click)="openUpdateDialog('confirmed')">Accept</button>
+                    <button class="btn btn-danger" (click)="openUpdateDialog('rejected')">Reject</button>
+                </div>
+                <ng-template #displayStatus>
+                    <strong>Order has been {{order.status}}</strong>
+                </ng-template>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-6 col-sm-12" *ngIf="order">
+          <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Shipping Address</h5>
+                <p class="card-text">{{order.orderShipping.shippingName}}</p>
+                <hr>
+                <p class="card-text">{{order.orderShipping.addressLine1}}</p>
+                <hr>
+                <p class="card-text">{{order.orderShipping.addressLine2}}</p>
+                <hr>
+                <p class="card-text">{{order.orderShipping.city}}</p>
+              </div>
+            </div>
+      </div>
+  </div>
+
+</ng-container>

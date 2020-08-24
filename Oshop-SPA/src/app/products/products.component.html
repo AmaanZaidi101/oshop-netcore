@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-4">
+    <ul class="list-group sticky-top">
+      <li>
+        <button class="list-group-item list-group-item-action" (click)="resetFilter()">All</button>
+      </li>
+      <li *ngFor="let category of categories">
+        <button class="list-group-item list-group-item-action" (click)="filter(category.id)">{{category.name}}</button>
+      </li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="row">
+        <div class="text-center" *ngIf="products.length === 0">
+          <h2>Sorry, no products available in the selected category</h2>
+        </div>
+        <ng-container *ngIf="products.length !== 0">
+          <ng-container *ngFor="let product of products; let i = index">
+            <div class="col">
+              <app-product-card
+              [product]="product"
+              [cart]="cart"
+              [showActions]="true"
+              ></app-product-card>
+          </div>
+          <div *ngIf="(i+1)%2==0" class="w-100"></div>
+          </ng-container>
+        </ng-container>
+    </div>
+</div>
+</div>

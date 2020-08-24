@@ -1,0 +1,22 @@
+<div class="homecontainer">
+    <div class="d-flex justify-content-center align-content-center">
+      <div class="card text-center content">
+        <div class="card-header">
+          100% Organic food
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Welcome to Oshop</h5>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum a. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Dui sapien eget mi proin sed. Arcu felis bibendum ut tristique et egestas quis ipsum suspendisse. At lectus urna duis convallis convallis tellus id interdum. Interdum velit euismod in pellentesque massa. Eu ultrices vitae auctor eu augue ut lectus arcu bibendum. Id faucibus nisl tincidunt eget nullam. Aenean sed adipiscing diam donec adipiscing tristique risus nec. Ultricies tristique nulla aliquet enim tortor at auctor. Quam adipiscing vitae proin sagittis nisl. Eu turpis egestas pretium aenean pharetra magna. Risus viverra adipiscing at in tellus. Eleifend mi in nulla posuere sollicitudin aliquam.
+
+            .</p>
+          <a *ngIf="!authService.currentUser" [routerLink]="['/register']" class="btn btn-primary">Sign Up</a>
+          <a *ngIf="authService.currentUser" [routerLink]="['/products']" class="btn btn-primary">Shop Now</a>
+        </div>
+        <div class="card-footer text-muted">
+          Oshop 2020
+        </div>
+      </div>
+    </div>
+  
+</div>
+

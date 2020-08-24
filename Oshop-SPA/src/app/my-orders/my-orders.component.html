@@ -1,0 +1,145 @@
+<div class="text-center mt-3">
+  <h2>Your orders - {{ pagination.totalItems }} found</h2>
+</div>
+
+<div class="container mt-3">
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadOrders()" novalidate>
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="minDate">From</label>
+          <input 
+          class="form-control ml-1"
+          placeholder="From"
+          [(ngModel)]="orderParams.minDate"
+          type="text"
+          id="minDate"
+          name="minDate"
+          [minDate]="minOrderDate"
+          [maxDate]="maxOrderDate"
+          bsDatepicker
+          #minDate="bsDatepicker"
+          [bsConfig]="bsConfig"
+          [bsValue]="orderParams.minDate"
+        />
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group px-2">
+          <label for="maxDate">To</label>
+          <input 
+          class="form-control ml-1"
+          placeholder="To"
+          [(ngModel)]="orderParams.maxDate"
+          type="text"
+          name="maxDate"
+          [minDate]="minOrderDate"
+          [maxDate]="maxOrderDate"
+          bsDatepicker
+          #maxDate="bsDatepicker"
+          [bsConfig]="bsConfig"
+        />
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group px-2">
+          <label for="status">Show: </label>
+          <select
+            class="form-control ml-1"
+            style="width: 130px;"
+            id="status"
+            name="status"
+            [(ngModel)]="orderParams.status"
+          >
+            <option *ngFor="let s of statusList" [value]="s.value">
+              {{ s.display }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group px-2">
+          <label for="orderId">Order Id: </label>
+          <input
+            type="text"
+            class="form-control ml-1"
+            style="width: 130px;"
+            id="orderId"
+            name="orderId"
+            [(ngModel)]="orderParams.orderId"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-8">
+        <div class="float-right">
+        <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
+          Apply Filters
+        </button>
+        <button
+          type="button"
+          class="btn btn-info"
+          (click)="resetFilters()"
+          style="margin-left: 10px;"
+        >
+          Reset Filter
+        </button>
+      </div>
+      </div>
+      <div class="col-4">
+        <div class="col">
+          <div class="btn-group float-right" btnRadioGroup name="isDescending" [(ngModel)]="orderParams.isDescending">
+            <label class="btn btn-success" btnRadio="true"
+                   tabindex="0" role="button">Newest</label>
+            <label class="btn btn-success" btnRadio="false"
+                   tabindex="0" role="button">Oldest</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br />
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:50%">Id</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{order.id}}</td>
+          <td>{{order.datePlaced | date}}</td>
+          <td>{{order.status | titlecase}}</td>
+          <td>
+            <a [routerLink]="['/my/orders/',order.id]">
+              <i class="fa fa-eye mr-1"></i>View
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

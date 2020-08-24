@@ -1,0 +1,33 @@
+.card { 
+    margin-bottom: 30px;
+    max-width: 400px;
+    min-height: 200px;
+  }
+
+  .sold{
+    position: absolute;
+    transform: rotate(-50deg);
+    padding-top: 100px;
+    color: red;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px !important;
+  }
+
+  .shaded {
+    opacity: 0.5;
+  }
+  
+  .card-img-top { 
+    height: 200px;
+  }
+  
+  .card-footer {
+    padding: 0;
+    background: #fff;
+  }
+  
+  .card-footer button {
+    cursor: pointer;
+    text-transform: uppercase;
+  }

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-8">
+    <div class="card" *ngIf="(cart$ | async) as cart">
+      <div class="card-body">
+        <h5 class="card-title">Order Summary</h5>
+        <p class="card-text">You have {{cart.totalQuantity}} items in your cart.</p>
+        <ul class="list-group list-group-flush" *ngIf="cart.cartItems">
+            <li *ngFor="let item of cart.cartItems"
+            class="list-group-item">
+            {{item.quantity}} x {{item.product.name}}
+            <div class="float-right">
+                {{item.totalPrice|currency:'USD':'symbol'}}
+            </div>
+           </li>
+           <li class="list-group-item font-weight-bold">
+               Total 
+               <div class="float-right">
+                   {{cart.totalPrice | currency:'USD':'symbol'}}
+               </div>
+           </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-4" *ngIf="shipping">
+    <div class="card col-12">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Delivery Address:</h4>
+              <h5 class="card-subtitle mb-2 text-muted">{{shipping.shippingName}}</h5>
+              <p class="card-text mb-2">{{shipping.addressLine1}}</p>
+              <p *ngIf="shipping.addressLine2" class="card-text mb-2">{{shipping.addressLine2}}</p>
+              <p class="card-text">{{shipping.city}}</p>
+              <p class="card-subtitle mb-2 text-muted">{{shipping.state}}</p>
+            </div>
+          </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col text-center">
+    <button style="width:100%;" class="btn btn-primary" [disabled]="!(cart$ | async) || !shipping" (click)="placeOrder()">Place Order</button>
+  </div>
+</div>
